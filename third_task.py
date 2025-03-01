@@ -11,27 +11,19 @@ raw_numbers = [
     "38050-111-22-22",
     "38050 111 22 11   ", ]
 
-
 def normalize_phone(phone_number):
-    # Видаляємо всі символи, крім цифр та символу '+'
+
     cleaned_number = re.sub(r'[^\d+]', '', phone_number)
 
-    # Перевіряємо, чи номер починається з '+'
     if cleaned_number.startswith('+'):
-        # Якщо номер починається з '+', то не змінюємо його
         normalized_number = cleaned_number
-        # Якщо номер починається з '38', то додаємо тільки '+'
     elif cleaned_number.startswith('38'):
         normalized_number = '+' + cleaned_number
     else:
-        # В інших випадках додаємо '+38'
         normalized_number = '+38' + cleaned_number
 
     return normalized_number
 
+sanitized_numbers = [normalize_phone(num) for num in raw_numbers]
 
-num = []
-for nume in raw_numbers:
-    num.append(normalize_phone(nume))
-
-print("Нормалізовані номери телефонів для SMS-розсилки:", num)
+print("Нормалізовані номери телефонів для SMS-розсилки:", sanitized_numbers)
